@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import './LandingPage.css'
+import ChatBot from './shared/ChatBot'
 import { ShoppingCart, Brain, Shield, Users, Zap, Globe, Star, Check } from 'lucide-react'
 
 // Import images
@@ -14,6 +15,8 @@ import sensayAIImg from '../assets/sensayAI.png'
 function LandingPage() {
   return (
     <div className="landing-page">
+      <ChatBot activeSection="landing" />
+      
       {/* Navigation */}
       <nav className="navbar">
         <div className="nav-container">

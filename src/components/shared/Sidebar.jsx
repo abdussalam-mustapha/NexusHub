@@ -1,18 +1,37 @@
 import { Link, useLocation } from 'react-router-dom'
 import './Sidebar.css'
-import { Rss, Users, Briefcase, Calendar, ShoppingCart, Home, Building } from 'lucide-react'
+import { Rss, Users, Briefcase, Calendar, ShoppingCart, Home, Building, Map, List, UserCheck, Heart } from 'lucide-react'
 
 function Sidebar({ activeSection }) {
   const location = useLocation()
   
-  const menuItems = [
-    { id: 'feed', icon: Rss, label: 'Feed', path: '/networking' },
-    { id: 'connections', icon: Users, label: 'Connections', path: '/networking' },
-    { id: 'jobs', icon: Briefcase, label: 'Jobs', path: '/networking' },
-    { id: 'events', icon: Calendar, label: 'Events', path: '/networking' },
-    { id: 'ecommerce', icon: ShoppingCart, label: 'E-commerce', path: '/ecommerce' },
-    { id: 'realestate', icon: Building, label: 'Real Estate', path: '/realestate' }
-  ]
+  const getMenuItems = () => {
+    const currentSection = activeSection || getActiveSection()
+    
+    switch (currentSection) {
+      case 'realestate':
+        return [
+          { id: 'property-map', icon: Map, label: 'Property Map', path: '/realestate' },
+          { id: 'listings', icon: List, label: 'Listings', path: '/realestate' },
+          { id: 'agent-directory', icon: UserCheck, label: 'Agent Directory', path: '/realestate' },
+          { id: 'saved-properties', icon: Heart, label: 'Saved Properties', path: '/realestate' }
+        ]
+      case 'ecommerce':
+        return [
+          { id: 'all-products', icon: ShoppingCart, label: 'All Products', path: '/ecommerce' },
+          { id: 'categories', icon: List, label: 'Categories', path: '/ecommerce' },
+          { id: 'orders', icon: Briefcase, label: 'Orders', path: '/ecommerce' },
+          { id: 'settings', icon: Building, label: 'Settings', path: '/ecommerce' }
+        ]
+      default:
+        return [
+          { id: 'feed', icon: Rss, label: 'Feed', path: '/networking' },
+          { id: 'connections', icon: Users, label: 'Connections', path: '/networking' },
+          { id: 'jobs', icon: Briefcase, label: 'Jobs', path: '/networking' },
+          { id: 'events', icon: Calendar, label: 'Events', path: '/networking' }
+        ]
+    }
+  }
 
   const getActiveSection = () => {
     if (activeSection) return activeSection
@@ -20,8 +39,8 @@ function Sidebar({ activeSection }) {
     const path = location.pathname
     if (path.includes('ecommerce')) return 'ecommerce'
     if (path.includes('realestate')) return 'realestate'
-    if (path.includes('networking')) return 'feed'
-    return 'feed'
+    if (path.includes('networking')) return 'networking'
+    return 'networking'
   }
 
   return (
@@ -34,9 +53,9 @@ function Sidebar({ activeSection }) {
       </div>
       
       <nav className="sidebar-nav">
-        {menuItems.map((item) => {
+        {getMenuItems().map((item, index) => {
           const IconComponent = item.icon
-          const isActive = getActiveSection() === item.id
+          const isActive = index === 0 // Make first item active by default
           return (
             <Link
               key={item.id}
