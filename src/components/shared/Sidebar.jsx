@@ -1,10 +1,16 @@
 import { Link, useLocation } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
 import './Sidebar.css'
-import { Rss, Users, Briefcase, Calendar, ShoppingCart, Home, Building, Map, List, UserCheck, Heart } from 'lucide-react'
+import { Rss, Users, Briefcase, Calendar, ShoppingCart, Home, Building, Map, List, UserCheck, Heart, LogOut } from 'lucide-react'
 
 function Sidebar({ activeSection }) {
   const location = useLocation()
+  const { logout, user } = useAuth()
   
+  const handleLogout = () => {
+    logout()
+  }
+
   const getMenuItems = () => {
     const currentSection = activeSection || getActiveSection()
     
@@ -68,6 +74,20 @@ function Sidebar({ activeSection }) {
           )
         })}
       </nav>
+      
+      {/* User Profile and Logout */}
+      <div className="sidebar-footer">
+        {user && (
+          <div className="user-profile">
+            <span className="user-name">{user.firstName} {user.lastName}</span>
+            <span className="user-email">{user.email}</span>
+          </div>
+        )}
+        <button onClick={handleLogout} className="logout-btn">
+          <LogOut className="nav-icon" />
+          <span className="nav-label">Logout</span>
+        </button>
+      </div>
     </aside>
   )
 }

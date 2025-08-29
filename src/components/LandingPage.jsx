@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 import './LandingPage.css'
 import ChatBot from './shared/ChatBot'
 import { ShoppingCart, Brain, Shield, Users, Zap, Globe, Star, Check } from 'lucide-react'
@@ -13,6 +14,13 @@ import testimonial3Img from '../assets/testimonial3.jpg'
 import sensayAIImg from '../assets/sensayAI.png'
 
 function LandingPage() {
+  const { isAuthenticated } = useAuth()
+  
+  // Helper function to get the correct link destination
+  const getLink = (destination) => {
+    return isAuthenticated ? destination : '/auth'
+  }
+  
   return (
     <div className="landing-page">
       <ChatBot activeSection="landing" />
@@ -30,7 +38,9 @@ function LandingPage() {
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
           </div>
-          <button className="nav-cta">Get Started</button>
+          <Link to={getLink('/networking')} className="nav-cta">
+            {isAuthenticated ? 'Dashboard' : 'Get Started'}
+          </Link>
         </div>
       </nav>
 
@@ -44,7 +54,7 @@ function LandingPage() {
             Experience the next generation of integrated digital platforms combining Real Estate, E-commerce, and Professional Networking, powered by Senay AI.
           </p>
           <div className="hero-buttons">
-            <button className="btn-primary">Explore Modules</button>
+            <Link to="/auth" className="btn-primary">Explore Modules</Link>
             <button className="btn-secondary">Learn More</button>
           </div>
         </div>
@@ -100,7 +110,7 @@ function LandingPage() {
               </div>
               <h3>E-commerce Catalog</h3>
               <p>Explore a vast selection of products with intelligent search, personalized recommendations, and seamless purchasing experience.</p>
-              <Link to="/ecommerce" className="btn-module">Explore Catalog</Link>
+              <Link to={getLink('/ecommerce')} className="btn-module">Explore Catalog</Link>
             </div>
             <div className="module-card">
               <div className="module-image">
@@ -108,7 +118,7 @@ function LandingPage() {
               </div>
               <h3>Real Estate Hub</h3>
               <p>Find your dream property with our advanced search filters, virtual tours, and AI-powered market insights.</p>
-              <Link to="/realestate" className="btn-module">View Properties</Link>
+              <Link to={getLink('/realestate')} className="btn-module">View Properties</Link>
             </div>
             <div className="module-card">
               <div className="module-image">
@@ -116,7 +126,7 @@ function LandingPage() {
               </div>
               <h3>Networking Feed</h3>
               <p>Connect with professionals, share ideas, and discover opportunities in our integrated social networking platform.</p>
-              <Link to="/networking" className="btn-module">Join Network</Link>
+              <Link to={getLink('/networking')} className="btn-module">Join Network</Link>
             </div>
           </div>
         </div>
@@ -225,7 +235,9 @@ function LandingPage() {
                 <li><Check className="check-icon" />Basic profile features</li>
                 <li><Check className="check-icon" />Standard account manager</li>
               </ul>
-              <button className="btn-pricing">Get Started</button>
+              <Link to={getLink('/networking')} className="btn-pricing">
+                {isAuthenticated ? 'Go to Dashboard' : 'Get Started'}
+              </Link>
             </div>
             <div className="pricing-card featured">
               <div className="popular-badge">Most Popular</div>
@@ -242,7 +254,9 @@ function LandingPage() {
                 <li><Check className="check-icon" />Enhanced networking features</li>
                 <li><Check className="check-icon" />Dedicated account manager</li>
               </ul>
-              <button className="btn-pricing-featured">Get Started</button>
+              <Link to={getLink('/networking')} className="btn-pricing-featured">
+                {isAuthenticated ? 'Go to Dashboard' : 'Get Started'}
+              </Link>
             </div>
             <div className="pricing-card">
               <h3>Enterprise</h3>
