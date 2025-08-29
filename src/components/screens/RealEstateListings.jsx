@@ -3,6 +3,10 @@ import Sidebar from '../shared/Sidebar'
 import TopNav from '../shared/TopNav'
 import ChatBot from '../shared/ChatBot'
 import { Search, Filter, MapPin, Home, Bath, Square, Heart, Phone, Mail, Grid, Map, Calculator, TrendingUp } from 'lucide-react'
+import ava1 from '../../assets/ava1.png'
+import ava2 from '../../assets/ava2.png'
+import ava3 from '../../assets/ava3.png'
+import testimonial3 from '../../assets/testimonial3.jpg'
 
 function RealEstateListings() {
   const listings = [
@@ -17,7 +21,7 @@ function RealEstateListings() {
       image: "�️",
       agent: {
         name: "Sarah J.",
-        avatar: "👩‍💼"
+        avatar: ava1
       }
     },
     {
@@ -31,7 +35,7 @@ function RealEstateListings() {
       image: "🏙️",
       agent: {
         name: "David K.",
-        avatar: "👨‍💼"
+        avatar: ava2
       }
     },
     {
@@ -45,7 +49,7 @@ function RealEstateListings() {
       image: "🏡",
       agent: {
         name: "Emily R.",
-        avatar: "👩‍💼"
+        avatar: ava3
       }
     },
     {
@@ -59,7 +63,7 @@ function RealEstateListings() {
       image: "🏢",
       agent: {
         name: "Mark P.",
-        avatar: "👨‍💼"
+        avatar: ava1
       }
     },
     {
@@ -73,7 +77,7 @@ function RealEstateListings() {
       image: "🍇",
       agent: {
         name: "Jessica M.",
-        avatar: "👩‍💼"
+        avatar: testimonial3
       }
     },
     {
@@ -87,7 +91,7 @@ function RealEstateListings() {
       image: "�",
       agent: {
         name: "Michael B.",
-        avatar: "👨‍💼"
+        avatar: ava2
       }
     }
   ]
@@ -161,7 +165,9 @@ function RealEstateListings() {
                   
                   <div className="property-agent">
                     <div className="agent-info">
-                      <div className="agent-avatar">{property.agent.avatar}</div>
+                      <div className="agent-avatar">
+                        <img src={property.agent.avatar} alt={property.agent.name} />
+                      </div>
                       <span className="agent-name">{property.agent.name}</span>
                     </div>
                     <button className="view-details-btn">View Details</button>

@@ -226,6 +226,14 @@
   align-items: center;
   justify-content: center;
   font-size: 1rem;
+  overflow: hidden;
+}
+
+.agent-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .agent-name {

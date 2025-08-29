@@ -3,6 +3,10 @@ import Sidebar from '../shared/Sidebar'
 import TopNav from '../shared/TopNav'
 import ChatBot from '../shared/ChatBot'
 import { User, Heart, MessageCircle, Share2, Image, Video, Plus, ThumbsUp, MessageSquare, Forward, Camera, Calendar, MapPin, Users, Clock, Building, Briefcase } from 'lucide-react'
+import ava1 from '../../assets/ava1.png'
+import ava2 from '../../assets/ava2.png'
+import ava3 from '../../assets/ava3.png'
+import testimonial3 from '../../assets/testimonial3.jpg'
 
 function NetworkingFeed() {
   const posts = [
@@ -12,7 +16,7 @@ function NetworkingFeed() {
         name: "Alice Johnson",
         title: "Senior Software Engineer at TechCorp",
         time: "2h ago",
-        avatar: "👩‍💻"
+        avatar: ava1
       },
       content: "Just wrapped up an amazing project on distributed systems! The team did incredible work. Always learning something new in this field.",
       hashtags: ["#DistributedSystems", "#SoftwareDevelopment"],
@@ -29,7 +33,7 @@ function NetworkingFeed() {
         name: "Bob Williams",
         title: "Marketing Director at Global Innovations",
         time: "7h ago",
-        avatar: "👨‍💼"
+        avatar: ava2
       },
       content: "Excited to share insights from our latest market analysis report. Data-driven strategies are key to success! What are your thoughts on current market trends?",
       hashtags: ["#Marketing", "#MarketAnalysis", "#BusinessStrategy"],
@@ -45,7 +49,7 @@ function NetworkingFeed() {
         name: "Charlie Davis",
         title: "Product Manager at Innovate Solutions",
         time: "2h ago",
-        avatar: "👨‍💻"
+        avatar: ava3
       },
       content: "Our new product feature is live! Huge shoutout to the engineering and design teams for their hard work and dedication. Check it out and let us know your feedback!",
       hashtags: ["#ProductLaunch", "#Innovation", "#Teamwork"],
@@ -59,9 +63,9 @@ function NetworkingFeed() {
   ]
 
   const suggestions = [
-    { name: "Sarah Lee", title: "UX Designer", avatar: "👩‍🎨" },
-    { name: "David Kim", title: "Data Scientist", avatar: "👨‍🔬" },
-    { name: "Emily Chen", title: "Project Manager", avatar: "👩‍💼" }
+    { name: "Sarah Lee", title: "UX Designer", avatar: ava1 },
+    { name: "David Kim", title: "Data Scientist", avatar: ava2 },
+    { name: "Emily Chen", title: "Project Manager", avatar: testimonial3 }
   ]
 
   const jobs = [
@@ -124,7 +128,9 @@ function NetworkingFeed() {
             {/* Create Post Section */}
             <div className="create-post">
               <div className="create-post-header">
-                <div className="user-avatar">👤</div>
+                <div className="user-avatar">
+                  <img src={ava3} alt="User" />
+                </div>
                 <input 
                   type="text" 
                   placeholder="What's on your mind, John?"
@@ -148,7 +154,9 @@ function NetworkingFeed() {
                 <div key={post.id} className="post-card">
                   <div className="post-header">
                     <div className="post-author">
-                      <div className="author-avatar">{post.author.avatar}</div>
+                      <div className="author-avatar">
+                        <img src={post.author.avatar} alt={post.author.name} />
+                      </div>
                       <div className="author-info">
                         <h3 className="author-name">{post.author.name}</h3>
                         <p className="author-title">{post.author.title}</p>
@@ -212,7 +220,9 @@ function NetworkingFeed() {
               <h3>People You May Know</h3>
               {suggestions.map((person, index) => (
                 <div key={index} className="suggestion-card">
-                  <div className="suggestion-avatar">{person.avatar}</div>
+                  <div className="suggestion-avatar">
+                    <img src={person.avatar} alt={person.name} />
+                  </div>
                   <div className="suggestion-info">
                     <h4>{person.name}</h4>
                     <p>{person.title}</p>
