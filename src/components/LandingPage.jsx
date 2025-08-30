@@ -340,7 +340,7 @@ function LandingPage() {
             </div>
           </div>
           <div className="footer-bottom">
-            <p>&copy; 2024 NexusHub Technologies. All rights reserved.</p>
+            <p>&copy; 2025 NexusHub Technologies. All rights reserved.</p>
           </div>
         </div>
       </footer>

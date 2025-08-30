@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useGoogleLogin } from '@react-oauth/google';
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import './Authentication.css'
@@ -59,29 +60,36 @@ function Authentication() {
     }
   }
 
-  const handleGoogleSignIn = async () => {
-    setLoading(true)
-    
-    try {
-      // Simulate Google OAuth (in real app, this would use Google OAuth)
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      const userData = {
-        id: Date.now(),
-        email: 'user@gmail.com',
-        firstName: 'Google',
-        lastName: 'User',
-        avatar: '/src/assets/ava2.png'
+  const handleGoogleSignIn = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setLoading(true);
+      try {
+        // In a real app, you'd send the access token to your backend
+        // to verify and get user info. For now, we'll simulate it.
+        const googleUser = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: { 'Authorization': `Bearer ${tokenResponse.access_token}` },
+        }).then(res => res.json());
+
+        const userData = {
+          id: googleUser.sub,
+          email: googleUser.email,
+          firstName: googleUser.given_name,
+          lastName: googleUser.family_name,
+          avatar: googleUser.picture,
+        };
+
+        login(userData);
+        navigate(from, { replace: true });
+      } catch (error) {
+        console.error('Google login error:', error);
+      } finally {
+        setLoading(false);
       }
-      
-      login(userData)
-      navigate(from, { replace: true })
-    } catch (error) {
-      console.error('Google sign in error:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+    },
+    onError: (error) => {
+      console.error('Google login failed:', error);
+    },
+  });
 
   return (
     <div className="authentication">
