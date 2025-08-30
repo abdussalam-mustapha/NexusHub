@@ -27,11 +27,18 @@ export const AuthProvider = ({ children }) => {
     setLoading(false)
   }, [])
 
-  const login = (userData) => {
+  const login = (userData, callback) => {
+    console.log('AuthContext: Logging in user', userData);
     setIsAuthenticated(true)
     setUser(userData)
     localStorage.setItem('isAuthenticated', 'true')
     localStorage.setItem('user', JSON.stringify(userData))
+    console.log('AuthContext: User logged in, isAuthenticated:', true);
+    
+    // Execute callback after state update if provided
+    if (callback) {
+      setTimeout(callback, 0);
+    }
   }
 
   const logout = () => {

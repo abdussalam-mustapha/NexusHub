@@ -22,6 +22,10 @@ function Authentication() {
   
   // Get the page user was trying to access, default to dashboard
   const from = location.state?.from?.pathname || '/networking'
+  
+  console.log('Authentication component loaded');
+  console.log('Location state:', location.state);
+  console.log('Redirect destination (from):', from);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -64,11 +68,14 @@ function Authentication() {
     onSuccess: async (tokenResponse) => {
       setLoading(true);
       try {
-        // In a real app, you'd send the access token to your backend
-        // to verify and get user info. For now, we'll simulate it.
+        console.log('Google OAuth success, fetching user info...');
+        
+        // Fetch user info from Google
         const googleUser = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
           headers: { 'Authorization': `Bearer ${tokenResponse.access_token}` },
         }).then(res => res.json());
+
+        console.log('Google user info:', googleUser);
 
         const userData = {
           id: googleUser.sub,
@@ -78,8 +85,15 @@ function Authentication() {
           avatar: googleUser.picture,
         };
 
-        login(userData);
-        navigate(from, { replace: true });
+        console.log('Logging in user:', userData);
+        console.log('Redirect destination:', from);
+
+        // Login user with callback for navigation
+        login(userData, () => {
+          console.log('Login callback executed, navigating to:', from);
+          navigate(from, { replace: true });
+        });
+
       } catch (error) {
         console.error('Google login error:', error);
       } finally {
@@ -88,7 +102,10 @@ function Authentication() {
     },
     onError: (error) => {
       console.error('Google login failed:', error);
+      setLoading(false);
     },
+    // Force popup mode to avoid redirect issues
+    flow: 'implicit',
   });
 
   return (
