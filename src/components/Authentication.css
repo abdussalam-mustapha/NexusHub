@@ -184,6 +184,20 @@
   height: 20px;
 }
 
+/* Google Login Wrapper */
+.google-login-wrapper {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.google-login-wrapper > div {
+  width: 100% !important;
+}
+
+.google-login-wrapper iframe {
+  width: 100% !important;
+}
+
 /* Divider */
 .divider {
   position: relative;
