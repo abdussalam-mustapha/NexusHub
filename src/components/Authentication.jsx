@@ -22,10 +22,6 @@ function Authentication() {
   
   // Get the page user was trying to access, default to dashboard
   const from = location.state?.from?.pathname || '/networking'
-  
-  console.log('Authentication component loaded');
-  console.log('Location state:', location.state);
-  console.log('Redirect destination (from):', from);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -144,7 +140,6 @@ function Authentication() {
                 useOneTap={false}
                 theme="outline"
                 size="large"
-                width="100%"
                 text="continue_with"
                 shape="rectangular"
                 disabled={loading}

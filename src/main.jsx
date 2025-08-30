@@ -4,11 +4,12 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import './index.css'
 import App from './App.jsx'
 
-const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID?.trim();
 
 // Debug logging
 console.log('Environment Variables Check:');
 console.log('VITE_GOOGLE_CLIENT_ID:', clientId);
+console.log('Client ID length:', clientId?.length);
 console.log('All env vars:', import.meta.env);
 
 if (!clientId) {
