@@ -5,6 +5,7 @@ import { MessageCircle, X, Send, Mic } from 'lucide-react'
 function ChatBot({ activeSection = 'general' }) {
   const [isOpen, setIsOpen] = useState(false)
   const [message, setMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -29,89 +30,64 @@ function ChatBot({ activeSection = 'general' }) {
     }
   }
 
-  const getBotResponse = (userMessage) => {
-    const lowerMessage = userMessage.toLowerCase()
-    
-    if (activeSection === 'landing') {
-      if (lowerMessage.includes('module') || lowerMessage.includes('explore')) {
-        return {
-          text: "NexusHub offers three core modules: E-commerce Catalog, Real Estate Hub, and Networking Feed. Which one interests you most?",
-          badge: 'Welcome'
-        }
+  const getBotResponse = async (userMessage) => {
+    try {
+      const response = await fetch(import.meta.env.VITE_SENSAY_QUERY_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-ORGANIZATION-SECRET': import.meta.env.VITE_X_ORGANIZATION_SECRET,
+          'X-USER-ID': import.meta.env.VITE_X_USER_ID,
+          'X-API-Version': import.meta.env.VITE_X_API_VERSION,
+        },
+        body: JSON.stringify({
+          content: userMessage
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
       }
-      if (lowerMessage.includes('pricing') || lowerMessage.includes('plan')) {
-        return {
-          text: "We offer flexible plans: Basic (Free), Pro ($29/month), and Enterprise ($99/month). Would you like details about any specific plan?",
-          badge: 'Welcome'
-        }
+
+      const data = await response.json();
+      
+      // Extract the content from the API response and add context-aware badge
+      const aiResponse = data.content || data.message || data.response || "I'm sorry, I couldn't process your request right now. Please try again.";
+      
+      // Determine badge based on active section
+      let badge = null;
+      switch(activeSection) {
+        case 'ecommerce':
+          badge = 'E-commerce';
+          break;
+        case 'networking':
+          badge = 'Networking';
+          break;
+        case 'realestate':
+          badge = 'Real Estate';
+          break;
+        case 'landing':
+          badge = 'Welcome';
+          break;
+        default:
+          badge = 'AI Assistant';
       }
-      if (lowerMessage.includes('ai') || lowerMessage.includes('sensay')) {
-        return {
-          text: "Sensay AI is our intelligent assistant that provides personalized recommendations, smart automation, and predictive insights across all modules!",
-          badge: 'Welcome'
-        }
-      }
-      if (lowerMessage.includes('get started') || lowerMessage.includes('start')) {
-        return {
-          text: "Great! You can start by exploring our modules or signing up for a free Basic account. Which module would you like to try first?",
-          badge: 'Welcome'
-        }
-      }
-    }
-    
-    if (activeSection === 'ecommerce') {
-      if (lowerMessage.includes('product') || lowerMessage.includes('recommendation')) {
-        return {
-          text: "Great! Are you interested in a specific category, or perhaps products that are trending right now?",
-          badge: 'E-commerce'
-        }
-      }
-      if (lowerMessage.includes('order') || lowerMessage.includes('tracking')) {
-        return {
-          text: "I can help you track your order. Please provide your order number or email address.",
-          badge: 'E-commerce'
-        }
-      }
-    }
-    
-    if (activeSection === 'networking') {
-      if (lowerMessage.includes('connection') || lowerMessage.includes('network')) {
-        return {
-          text: "I can help you expand your network! Would you like me to suggest people in your industry or help you craft connection messages?",
-          badge: 'Networking'
-        }
-      }
-      if (lowerMessage.includes('job') || lowerMessage.includes('career')) {
-        return {
-          text: "Looking for new opportunities? I can help you find relevant job postings or review your profile.",
-          badge: 'Networking'
-        }
-      }
-    }
-    
-    if (activeSection === 'realestate') {
-      if (lowerMessage.includes('property') || lowerMessage.includes('house')) {
-        return {
-          text: "I can help you find the perfect property! What's your preferred location and budget range?",
-          badge: 'Real Estate'
-        }
-      }
-      if (lowerMessage.includes('loan') || lowerMessage.includes('mortgage')) {
-        return {
-          text: "I can assist with loan pre-approval and mortgage calculations. What's your target loan amount?",
-          badge: 'Real Estate'
-        }
-      }
-    }
-    
-    return {
-      text: "Thank you for your message! How else can I assist you today?",
-      badge: null
+      
+      return {
+        text: aiResponse,
+        badge: badge
+      };
+    } catch (error) {
+      console.error('Error getting bot response:', error);
+      return {
+        text: "I'm experiencing some technical difficulties. Please try again in a moment.",
+        badge: 'System'
+      };
     }
   }
 
-  const handleSendMessage = () => {
-    if (message.trim()) {
+  const handleSendMessage = async () => {
+    if (message.trim() && !isLoading) {
       const newMessage = {
         id: messages.length + 1,
         sender: 'user',
@@ -120,11 +96,12 @@ function ChatBot({ activeSection = 'general' }) {
       }
       
       setMessages([...messages, newMessage])
+      const currentMessage = message
       setMessage('')
+      setIsLoading(true)
       
-      // Simulate bot response
-      setTimeout(() => {
-        const response = getBotResponse(message)
+      try {
+        const response = await getBotResponse(currentMessage)
         const botResponse = {
           id: messages.length + 2,
           sender: 'bot',
@@ -133,17 +110,31 @@ function ChatBot({ activeSection = 'general' }) {
           badge: response.badge
         }
         setMessages(prev => [...prev, botResponse])
-      }, 1000)
+      } catch (error) {
+        console.error('Error sending message:', error)
+        const errorResponse = {
+          id: messages.length + 2,
+          sender: 'bot',
+          text: "I'm sorry, there was an error processing your message. Please try again.",
+          timestamp: new Date(),
+          badge: 'System'
+        }
+        setMessages(prev => [...prev, errorResponse])
+      } finally {
+        setIsLoading(false)
+      }
     }
   }
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !isLoading) {
       handleSendMessage()
     }
   }
 
-  const handleQuickAction = (action) => {
+  const handleQuickAction = async (action) => {
+    if (isLoading) return
+    
     const newMessage = {
       id: messages.length + 1,
       sender: 'user',
@@ -151,10 +142,10 @@ function ChatBot({ activeSection = 'general' }) {
       timestamp: new Date()
     }
     setMessages([...messages, newMessage])
+    setIsLoading(true)
     
-    // Auto-response for quick actions
-    setTimeout(() => {
-      const response = getBotResponse(action)
+    try {
+      const response = await getBotResponse(action)
       const botResponse = {
         id: messages.length + 2,
         sender: 'bot',
@@ -163,7 +154,19 @@ function ChatBot({ activeSection = 'general' }) {
         badge: response.badge
       }
       setMessages(prev => [...prev, botResponse])
-    }, 800)
+    } catch (error) {
+      console.error('Error with quick action:', error)
+      const errorResponse = {
+        id: messages.length + 2,
+        sender: 'bot',
+        text: "I'm sorry, there was an error processing your request. Please try again.",
+        timestamp: new Date(),
+        badge: 'System'
+      }
+      setMessages(prev => [...prev, errorResponse])
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -210,14 +213,29 @@ function ChatBot({ activeSection = 'general' }) {
               </div>
             ))}
             
+            {/* Loading indicator */}
+            {isLoading && (
+              <div className="message bot">
+                <div className="message-avatar">🤖</div>
+                <div className="message-content">
+                  <div className="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+            )}
+            
             {/* Quick Actions - Show for first few messages */}
-            {messages.length <= 2 && (
+            {messages.length <= 2 && !isLoading && (
               <div className="quick-actions">
                 {getQuickActions().map((action, index) => (
                   <button
                     key={index}
                     className="quick-action-btn"
                     onClick={() => handleQuickAction(action)}
+                    disabled={isLoading}
                   >
                     {action}
                   </button>
@@ -227,20 +245,22 @@ function ChatBot({ activeSection = 'general' }) {
           </div>
 
           <div className="chat-input">
-            <button className="mic-btn">
+            <button className="mic-btn" disabled={isLoading}>
               <Mic className="mic-icon" />
             </button>
             <input
               type="text"
-              placeholder="Type your message..."
+              placeholder={isLoading ? "AI is thinking..." : "Type your message..."}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               className="message-input"
+              disabled={isLoading}
             />
             <button 
               className="send-btn"
               onClick={handleSendMessage}
+              disabled={isLoading || !message.trim()}
             >
               <Send className="send-icon" />
             </button>
