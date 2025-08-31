@@ -9,6 +9,7 @@ import ecommerceImg from '../assets/ecommerce.png'
 import realestateImg from '../assets/realestate.png'
 import networkingImg from '../assets/networking.png'
 import testimonial1Img from '../assets/testimonial1.jpg'
+import logoImg from '../assets/NexusHub.png'
 import testimonial2Img from '../assets/testimonial2.webp'
 import testimonial3Img from '../assets/testimonial3.jpg'
 import sensayAIImg from '../assets/sensayAI.png'
@@ -29,7 +30,7 @@ function LandingPage() {
       <nav className="navbar">
         <div className="nav-container">
           <div className="nav-logo">
-            <span className="logo-text">NexusHub</span>
+            <img src={logoImg} alt="NexusHub" className="logo-image" />
           </div>
           <div className="nav-links">
             <a href="#features">Features</a>
@@ -299,7 +300,9 @@ function LandingPage() {
         <div className="container">
           <div className="footer-content">
             <div className="footer-section">
-              <h4>NexusHub</h4>
+              <div className="footer-logo">
+                <img src={logoImg} alt="NexusHub" className="footer-logo-image" />
+              </div>
               <p>Unifying your digital world through intelligent commerce, property solutions, and meaningful connections.</p>
             </div>
             <div className="footer-section">

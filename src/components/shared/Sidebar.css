@@ -32,8 +32,10 @@
   color: #4cc8e8;
 }
 
-.logo-icon {
-  font-size: 1.5rem;
+.logo-image {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
 }
 
 .sidebar-nav {

@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import './Sidebar.css'
 import { Rss, Users, Briefcase, Calendar, ShoppingCart, Home, Building, Map, List, UserCheck, Heart, LogOut } from 'lucide-react'
+import logoImg from '../../assets/NexusHub.png'
 
 function Sidebar({ activeSection }) {
   const location = useLocation()
@@ -53,8 +54,7 @@ function Sidebar({ activeSection }) {
     <aside className="sidebar">
       <div className="sidebar-header">
         <Link to="/" className="logo">
-          <span className="logo-icon">✦</span>
-          <span className="logo-text">NexusHub</span>
+          <img src={logoImg} alt="NexusHub" className="logo-image" />
         </Link>
       </div>
       

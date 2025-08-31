@@ -3,6 +3,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import './Authentication.css'
+import logoImg from '../assets/NexusHub.png'
 
 function Authentication() {
   const [isSignUp, setIsSignUp] = useState(false)
@@ -105,7 +106,7 @@ function Authentication() {
         <div className="auth-branding">
           <div className="branding-content">
             <div className="logo">
-              <span className="logo-text">NexusHub</span>
+              <img src={logoImg} alt="NexusHub" className="logo-image" />
             </div>
             <h2 className="branding-title">
               {isSignUp ? 'Join NexusHub Today' : 'Welcome Back to NexusHub'}

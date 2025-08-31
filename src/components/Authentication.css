@@ -52,11 +52,11 @@
   margin-bottom: 40px;
 }
 
-.logo-text {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.logo-image {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .branding-title {
@@ -459,8 +459,8 @@
     padding: 30px 20px;
   }
   
-  .logo-text {
-    font-size: 2rem;
+  .logo-image {
+    height: 45px;
   }
   
   .branding-title {
