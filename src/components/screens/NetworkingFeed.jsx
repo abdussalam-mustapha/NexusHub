@@ -21,7 +21,7 @@ function NetworkingFeed() {
       },
       content: "Just wrapped up an amazing project on distributed systems! The team did incredible work. Always learning something new in this field.",
       hashtags: ["#DistributedSystems", "#SoftwareDevelopment"],
-      image: "💻",
+      image: codeImg,
       stats: {
         likes: 194,
         comments: 23,
@@ -176,7 +176,7 @@ function NetworkingFeed() {
                     
                     {post.image && (
                       <div className="post-image">
-                        {typeof post.image === 'string' && post.image.startsWith('🚀') ? (
+                        {typeof post.image === 'string' ? (
                           <div className="image-placeholder">{post.image}</div>
                         ) : (
                           <img src={post.image} alt="Post content" className="post-image-content" />
