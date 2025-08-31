@@ -262,7 +262,7 @@ function ChatBot({ activeSection = 'general' }) {
               onClick={handleSendMessage}
               disabled={isLoading || !message.trim()}
             >
-              <Send className="send-icon" />
+              ➤
             </button>
           </div>
         </div>
