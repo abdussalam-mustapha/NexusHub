@@ -66,13 +66,13 @@
 }
 
 .logo-image {
-  height: 55px;
+  height: 70px;
   width: auto;
   object-fit: contain;
 }
 
 .footer-logo-image {
-  height: 50px;
+  height: 65px;
   width: auto;
   object-fit: contain;
   margin-bottom: 1rem;

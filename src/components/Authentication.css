@@ -1,6 +1,6 @@
 /* Authentication Page Styles */
 .authentication {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   background: linear-gradient(135deg, #1a1d21 0%, #2a2f36 100%);
@@ -53,7 +53,7 @@
 }
 
 .logo-image {
-  height: 80px;
+  height: 140px;
   width: auto;
   object-fit: contain;
   filter: brightness(0) invert(1);
@@ -460,7 +460,7 @@
   }
   
   .logo-image {
-    height: 60px;
+    height: 100px;
   }
   
   .branding-title {
