@@ -4,6 +4,20 @@ import TopNav from '../shared/TopNav'
 import ChatBot from '../shared/ChatBot'
 import { Search, Filter, Star, Heart, ShoppingCart } from 'lucide-react'
 
+// Product Images
+import smartHomeImg from '../../assets/smart-home-device-kitchen.jpg'
+import wirelessMouseImg from '../../assets/wireless-computer-mouse-with-sphere.jpg'
+import headphonesImg from '../../assets/headphones-displayed-against-dark-background.jpg'
+import ssdStorageImg from '../../assets/man-using-external-storage-used.jpg'
+import smartLightImg from '../../assets/view-futuristic-lighting-lamp-design.jpg'
+import teaPotImg from '../../assets/modern-metallic-teapot-with-transparent-pot-filtered-coffee-thick-wooden-table-cafe-shop.jpg'
+import coffeeImg from '../../assets/machine-grinding-coffee-beans.jpg'
+import airFryerImg from '../../assets/close-up-air-fryer.jpg'
+import robotVacuumImg from '../../assets/still-life-robotic-vacuum.jpg'
+import acousticPanelsImg from '../../assets/acoustic-foam-studio.jpg'
+import smartGardenImg from '../../assets/indoor_smRT_GARDEN.jpeg'
+import photoFrameImg from '../../assets/photo_frame.jpg'
+
 function EcommerceCatalog() {
   const trendingProducts = [
     {
@@ -13,7 +27,7 @@ function EcommerceCatalog() {
       originalPrice: 249.99,
       rating: 4.8,
       reviews: 1504,
-      image: "🏠",
+      image: smartHomeImg,
       badge: "Bestseller",
       brand: "Tech Innovations",
       colors: ["blue", "gray"]
@@ -25,7 +39,7 @@ function EcommerceCatalog() {
       originalPrice: 59.00,
       rating: 4.7,
       reviews: 850,
-      image: "🖱️",
+      image: wirelessMouseImg,
       badge: null,
       brand: "ErgoTech",
       colors: ["black", "white"]
@@ -37,7 +51,7 @@ function EcommerceCatalog() {
       originalPrice: 200.00,
       rating: 4.9,
       reviews: 930,
-      image: "🎧",
+      image: headphonesImg,
       badge: "Bestseller",
       brand: "AudioLux",
       colors: ["black", "silver"]
@@ -49,7 +63,7 @@ function EcommerceCatalog() {
       originalPrice: 170.00,
       rating: 4.8,
       reviews: 1200,
-      image: "💾",
+      image: ssdStorageImg,
       badge: null,
       brand: "DataVault",
       colors: ["orange", "blue", "red"]
@@ -64,7 +78,7 @@ function EcommerceCatalog() {
       originalPrice: 39.00,
       rating: 4.5,
       reviews: 700,
-      image: "💡",
+      image: smartLightImg,
       badge: "Bestseller",
       brand: "LumiFlow",
       colors: ["multicolor"]
@@ -76,7 +90,7 @@ function EcommerceCatalog() {
       originalPrice: 80.00,
       rating: 4.7,
       reviews: 920,
-      image: "🫖",
+      image: teaPotImg,
       badge: "Bestseller",
       brand: "ZenKitchen",
       colors: ["white", "black"]
@@ -88,7 +102,7 @@ function EcommerceCatalog() {
       originalPrice: 600.00,
       rating: 4.8,
       reviews: 3400,
-      image: "☕",
+      image: coffeeImg,
       badge: "Bestseller",
       brand: "BrewMaster",
       colors: ["silver", "black"]
@@ -100,7 +114,7 @@ function EcommerceCatalog() {
       originalPrice: 150.00,
       rating: 4.6,
       reviews: 1800,
-      image: "🍳",
+      image: airFryerImg,
       badge: null,
       brand: "KitchenChef Appliances",
       colors: ["black", "white"]
@@ -115,7 +129,7 @@ function EcommerceCatalog() {
       originalPrice: 400.00,
       rating: 4.7,
       reviews: 1800,
-      image: "🤖",
+      image: robotVacuumImg,
       badge: "Bestseller",
       brand: "CleanRobo",
       colors: ["black", "white", "gray"]
@@ -127,7 +141,7 @@ function EcommerceCatalog() {
       originalPrice: 90.00,
       rating: 4.8,
       reviews: 600,
-      image: "�",
+      image: acousticPanelsImg,
       badge: null,
       brand: "SoundSpace Designs",
       colors: ["wood", "black", "white"]
@@ -139,7 +153,7 @@ function EcommerceCatalog() {
       originalPrice: 135.00,
       rating: 4.6,
       reviews: 600,
-      image: "🌱",
+      image: smartGardenImg,
       badge: null,
       brand: "GreenThumb Tech",
       colors: ["green", "white"]
@@ -151,7 +165,7 @@ function EcommerceCatalog() {
       originalPrice: 99.00,
       rating: 4.9,
       reviews: 340,
-      image: "�️",
+      image: photoFrameImg,
       badge: null,
       brand: "MemoryView",
       colors: ["black", "white"]
@@ -165,7 +179,11 @@ function EcommerceCatalog() {
       )}
       
       <div className="product-image">
-        <div className="image-placeholder">{product.image}</div>
+        {(typeof product.image === 'string' && !product.image.includes('/assets/')) ? (
+          <div className="image-placeholder">{product.image}</div>
+        ) : (
+          <img src={product.image} alt={product.name} className="product-image-content" />
+        )}
         <button className="wishlist-btn">
           <Heart className="heart-icon" />
         </button>
