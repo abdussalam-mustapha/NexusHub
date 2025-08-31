@@ -176,7 +176,7 @@ function NetworkingFeed() {
                     
                     {post.image && (
                       <div className="post-image">
-                        {typeof post.image === 'string' ? (
+                        {(typeof post.image === 'string' && !post.image.includes('/assets/')) ? (
                           <div className="image-placeholder">{post.image}</div>
                         ) : (
                           <img src={post.image} alt="Post content" className="post-image-content" />
