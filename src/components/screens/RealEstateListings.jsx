@@ -146,7 +146,7 @@ function RealEstateListings() {
                 )}
                 
                 <div className="property-image">
-                  {(typeof property.image === 'string') ? (
+                  {(typeof property.image === 'string' && !property.image.includes('/assets/')) ? (
                     <div className="image-placeholder">
                       {property.image === 'cityscape' && <Building2 className="property-icon" />}
                       {property.image === 'house' && <Home className="property-icon" />}
