@@ -2,7 +2,7 @@ import './EcommerceCatalog.css'
 import Sidebar from '../shared/Sidebar'
 import TopNav from '../shared/TopNav'
 import ChatBot from '../shared/ChatBot'
-import { Search, Filter, Star, Heart, ShoppingCart } from 'lucide-react'
+import { Search, Filter, Star, Heart, ShoppingCart, Package, Facebook, Twitter, Linkedin, Instagram, Camera } from 'lucide-react'
 
 // Product Images
 import smartHomeImg from '../../assets/smart-home-device-kitchen.jpg'
@@ -199,7 +199,7 @@ function EcommerceCatalog() {
         </div>
         
         <div className="product-brand">
-          <span className="brand-icon">📦</span>
+          <Package className="brand-icon" />
           <span className="brand-name">{product.brand}</span>
         </div>
         
@@ -356,10 +356,10 @@ function EcommerceCatalog() {
             <a href="#company">Company</a>
           </div>
           <div className="footer-social">
-            <a href="#facebook">📘</a>
-            <a href="#twitter">🐦</a>
-            <a href="#linkedin">💼</a>
-            <a href="#instagram">📷</a>
+            <a href="#facebook"><Facebook className="social-icon" /></a>
+            <a href="#twitter"><Twitter className="social-icon" /></a>
+            <a href="#linkedin"><Linkedin className="social-icon" /></a>
+            <a href="#instagram"><Instagram className="social-icon" /></a>
           </div>
         </footer>
       </main>

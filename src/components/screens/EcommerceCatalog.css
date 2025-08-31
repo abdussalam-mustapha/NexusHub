@@ -289,7 +289,9 @@
 }
 
 .brand-icon {
-  font-size: 1rem;
+  width: 16px;
+  height: 16px;
+  color: #888;
 }
 
 .product-rating {
@@ -396,10 +398,17 @@
   font-size: 1.2rem;
   text-decoration: none;
   transition: transform 0.3s ease;
+  color: #888;
 }
 
 .footer-social a:hover {
   transform: scale(1.1);
+  color: #fff;
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
 }
 
 /* Mobile Responsive */

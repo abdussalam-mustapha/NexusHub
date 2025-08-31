@@ -2,11 +2,19 @@ import './RealEstateListings.css'
 import Sidebar from '../shared/Sidebar'
 import TopNav from '../shared/TopNav'
 import ChatBot from '../shared/ChatBot'
-import { Search, Filter, MapPin, Home, Bath, Square, Heart, Phone, Mail, Grid, Map, Calculator, TrendingUp } from 'lucide-react'
+import { Search, Filter, MapPin, Home, Bath, Square, Heart, Phone, Mail, Grid, Map, Calculator, TrendingUp, Building, Building2, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react'
 import ava1 from '../../assets/ava1.png'
 import ava2 from '../../assets/ava2.png'
 import ava3 from '../../assets/ava3.png'
 import testimonial3 from '../../assets/testimonial3.jpg'
+
+// Property Images
+import property1 from '../../assets/propertyone.jpg'
+import property2 from '../../assets/propertytwo.jpg'
+import property3 from '../../assets/property3.jpg'
+import property4 from '../../assets/propertyfour.webp'
+import property5 from '../../assets/propertyfive.jpg'
+import property6 from '../../assets/propertysix.webp'
 
 function RealEstateListings() {
   const listings = [
@@ -18,7 +26,7 @@ function RealEstateListings() {
       baths: 3,
       sqft: 2800,
       badge: "New",
-      image: "�️",
+      image: property1,
       agent: {
         name: "Sarah J.",
         avatar: ava1
@@ -32,7 +40,7 @@ function RealEstateListings() {
       baths: 1,
       sqft: 1200,
       badge: "Reduced",
-      image: "🏙️",
+      image: property2,
       agent: {
         name: "David K.",
         avatar: ava2
@@ -46,7 +54,7 @@ function RealEstateListings() {
       baths: 3.5,
       sqft: 3500,
       badge: "Featured",
-      image: "🏡",
+      image: property3,
       agent: {
         name: "Emily R.",
         avatar: ava3
@@ -60,7 +68,7 @@ function RealEstateListings() {
       baths: 1,
       sqft: 750,
       badge: null,
-      image: "🏢",
+      image: property4,
       agent: {
         name: "Mark P.",
         avatar: ava1
@@ -74,7 +82,7 @@ function RealEstateListings() {
       baths: 5,
       sqft: 5000,
       badge: "New",
-      image: "🍇",
+      image: property5,
       agent: {
         name: "Jessica M.",
         avatar: testimonial3
@@ -88,7 +96,7 @@ function RealEstateListings() {
       baths: 2,
       sqft: 1500,
       badge: "Reduced",
-      image: "�",
+      image: property6,
       agent: {
         name: "Michael B.",
         avatar: ava2
@@ -138,7 +146,16 @@ function RealEstateListings() {
                 )}
                 
                 <div className="property-image">
-                  <div className="image-placeholder">{property.image}</div>
+                  {(typeof property.image === 'string') ? (
+                    <div className="image-placeholder">
+                      {property.image === 'cityscape' && <Building2 className="property-icon" />}
+                      {property.image === 'house' && <Home className="property-icon" />}
+                      {property.image === 'building' && <Building className="property-icon" />}
+                      {property.image === 'countryside' && <Home className="property-icon" />}
+                    </div>
+                  ) : (
+                    <img src={property.image} alt={property.title} className="property-image-content" />
+                  )}
                   <button className="favorite-btn">
                     <Heart className="heart-icon" />
                   </button>
@@ -211,7 +228,7 @@ function RealEstateListings() {
             <div className="area-overview">
               <h3>Area Overview</h3>
               <div className="map-placeholder">
-                <div className="map-icon">🗺️</div>
+                <Map className="map-icon" />
                 <div className="map-dots">
                   <div className="dot blue"></div>
                   <div className="dot orange"></div>
@@ -239,10 +256,10 @@ function RealEstateListings() {
             <a href="#company">Company</a>
           </div>
           <div className="footer-social">
-            <a href="#facebook">📘</a>
-            <a href="#twitter">🐦</a>
-            <a href="#linkedin">💼</a>
-            <a href="#instagram">📷</a>
+            <a href="#facebook"><Facebook className="social-icon" /></a>
+            <a href="#twitter"><Twitter className="social-icon" /></a>
+            <a href="#linkedin"><Linkedin className="social-icon" /></a>
+            <a href="#instagram"><Instagram className="social-icon" /></a>
           </div>
         </footer>
       </main>
