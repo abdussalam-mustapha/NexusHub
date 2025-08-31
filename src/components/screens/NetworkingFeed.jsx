@@ -7,6 +7,7 @@ import ava1 from '../../assets/ava1.png'
 import ava2 from '../../assets/ava2.png'
 import ava3 from '../../assets/ava3.png'
 import testimonial3 from '../../assets/testimonial3.jpg'
+import codeImg from '../../assets/code.png'
 
 function NetworkingFeed() {
   const posts = [
@@ -53,7 +54,7 @@ function NetworkingFeed() {
       },
       content: "Our new product feature is live! Huge shoutout to the engineering and design teams for their hard work and dedication. Check it out and let us know your feedback!",
       hashtags: ["#ProductLaunch", "#Innovation", "#Teamwork"],
-      image: "🚀",
+      image: codeImg,
       stats: {
         likes: 210,
         comments: 45,
@@ -175,7 +176,11 @@ function NetworkingFeed() {
                     
                     {post.image && (
                       <div className="post-image">
-                        <div className="image-placeholder">{post.image}</div>
+                        {typeof post.image === 'string' && post.image.startsWith('🚀') ? (
+                          <div className="image-placeholder">{post.image}</div>
+                        ) : (
+                          <img src={post.image} alt="Post content" className="post-image-content" />
+                        )}
                       </div>
                     )}
                   </div>

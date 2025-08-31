@@ -222,6 +222,12 @@
   opacity: 0.7;
 }
 
+.post-image-content {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .post-stats {
   display: flex;
   gap: 1.5rem;
