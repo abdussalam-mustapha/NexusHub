@@ -21,6 +21,9 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
 }
 
 a {
@@ -53,6 +56,25 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  button {
+    min-height: 44px;
+    padding: 0.8em 1.2em;
+  }
+  
+  input {
+    min-height: 44px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 @media (prefers-color-scheme: light) {
