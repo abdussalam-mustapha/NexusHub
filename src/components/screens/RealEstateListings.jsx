@@ -2,7 +2,9 @@ import './RealEstateListings.css'
 import Sidebar from '../shared/Sidebar'
 import TopNav from '../shared/TopNav'
 import ChatBot from '../shared/ChatBot'
+import Notifications, { showNotification } from '../shared/Notifications'
 import { Search, Filter, MapPin, Home, Bath, Square, Heart, Phone, Mail, Grid, Map, Calculator, TrendingUp, Building, Building2, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react'
+import { useState } from 'react'
 import ava1 from '../../assets/ava1.png'
 import ava2 from '../../assets/ava2.png'
 import ava3 from '../../assets/ava3.png'
@@ -17,7 +19,18 @@ import property5 from '../../assets/propertyfive.jpg'
 import property6 from '../../assets/propertysix.webp'
 
 function RealEstateListings() {
-  const listings = [
+  const [favorites, setFavorites] = useState([])
+  const [viewMode, setViewMode] = useState('grid')
+  const [filters, setFilters] = useState({
+    minPrice: '',
+    maxPrice: '',
+    beds: '',
+    baths: '',
+    location: ''
+  })
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const allListings = [
     {
       id: 1,
       title: "123 Ocean View Dr, Miami, FL",
@@ -104,6 +117,34 @@ function RealEstateListings() {
     }
   ]
 
+  const handleFavorite = (propertyId) => {
+    const property = allListings.find(p => p.id === propertyId)
+    if (favorites.includes(propertyId)) {
+      setFavorites(favorites.filter(id => id !== propertyId))
+      showNotification('info', 'Removed from Favorites', `${property.title} removed from your favorites`)
+    } else {
+      setFavorites([...favorites, propertyId])
+      showNotification('favorite', 'Added to Favorites!', `${property.title} saved to your favorites`)
+    }
+  }
+
+  const handleFilterChange = (filterName, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterName]: value
+    }))
+  }
+
+  const filteredListings = allListings.filter(listing => {
+    const matchesSearch = listing.title.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesMinPrice = !filters.minPrice || listing.price >= parseInt(filters.minPrice)
+    const matchesMaxPrice = !filters.maxPrice || listing.price <= parseInt(filters.maxPrice)
+    const matchesBeds = !filters.beds || listing.beds >= parseInt(filters.beds)
+    const matchesBaths = !filters.baths || listing.baths >= parseFloat(filters.baths)
+    
+    return matchesSearch && matchesMinPrice && matchesMaxPrice && matchesBeds && matchesBaths
+  })
+
   const formatPrice = (price) => {
     return `$${price.toLocaleString()}`
   }
@@ -113,31 +154,106 @@ function RealEstateListings() {
       <Sidebar activeSection="realestate" />
       <TopNav title="Real Estate Listings" />
       <ChatBot activeSection="realestate" />
+      <Notifications />
       
       <main className="main-content">
         <div className="listings-header">
           <h1>Real Estate Listings</h1>
-          <div className="view-controls">
-            <button className="view-btn active">
-              <Grid className="view-icon" />
-              Grid View
-            </button>
-            <button className="view-btn">
-              <Map className="view-icon" />
-              Map View
-            </button>
-            <select className="sort-select">
-              <option>Relevance</option>
-              <option>Price: Low to High</option>
-              <option>Price: High to Low</option>
-              <option>Newest First</option>
-            </select>
+          <div className="search-and-controls">
+            <div className="search-bar">
+              <Search className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search by location or property type..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+            </div>
+            <div className="view-controls">
+              <button 
+                className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                onClick={() => setViewMode('grid')}
+              >
+                <Grid className="view-icon" />
+                Grid View
+              </button>
+              <button 
+                className={`view-btn ${viewMode === 'map' ? 'active' : ''}`}
+                onClick={() => setViewMode('map')}
+              >
+                <Map className="view-icon" />
+                Map View
+              </button>
+            </div>
           </div>
         </div>
 
         <div className="listings-layout">
+          <aside className="filters-sidebar">
+            <div className="filters-header">
+              <Filter className="filter-icon" />
+              <span>Filters</span>
+            </div>
+            
+            <div className="filter-section">
+              <h4>Price Range</h4>
+              <div className="price-inputs">
+                <input 
+                  type="number" 
+                  placeholder="Min Price"
+                  value={filters.minPrice}
+                  onChange={(e) => handleFilterChange('minPrice', e.target.value)}
+                  className="filter-input" 
+                />
+                <input 
+                  type="number" 
+                  placeholder="Max Price"
+                  value={filters.maxPrice}
+                  onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
+                  className="filter-input" 
+                />
+              </div>
+            </div>
+
+            <div className="filter-section">
+              <h4>Bedrooms</h4>
+              <select 
+                value={filters.beds}
+                onChange={(e) => handleFilterChange('beds', e.target.value)}
+                className="filter-select"
+              >
+                <option value="">Any</option>
+                <option value="1">1+ Beds</option>
+                <option value="2">2+ Beds</option>
+                <option value="3">3+ Beds</option>
+                <option value="4">4+ Beds</option>
+                <option value="5">5+ Beds</option>
+              </select>
+            </div>
+
+            <div className="filter-section">
+              <h4>Bathrooms</h4>
+              <select 
+                value={filters.baths}
+                onChange={(e) => handleFilterChange('baths', e.target.value)}
+                className="filter-select"
+              >
+                <option value="">Any</option>
+                <option value="1">1+ Baths</option>
+                <option value="2">2+ Baths</option>
+                <option value="3">3+ Baths</option>
+                <option value="4">4+ Baths</option>
+              </select>
+            </div>
+
+            <div className="results-count">
+              <span>{filteredListings.length} properties found</span>
+            </div>
+          </aside>
+
           <div className="properties-grid">
-            {listings.map(property => (
+            {filteredListings.map(property => (
               <div key={property.id} className="property-card">
                 {property.badge && (
                   <div className={`property-badge ${property.badge.toLowerCase()}`}>
@@ -156,7 +272,10 @@ function RealEstateListings() {
                   ) : (
                     <img src={property.image} alt={property.title} className="property-image-content" />
                   )}
-                  <button className="favorite-btn">
+                  <button 
+                    className={`favorite-btn ${favorites.includes(property.id) ? 'favorited' : ''}`}
+                    onClick={() => handleFavorite(property.id)}
+                  >
                     <Heart className="heart-icon" />
                   </button>
                 </div>

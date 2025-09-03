@@ -115,10 +115,18 @@
   font-weight: 500;
   cursor: pointer;
   transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .post-btn:hover {
   background: #0056b3;
+}
+
+.post-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
 }
 
 /* Activity Section */
@@ -274,6 +282,16 @@
   color: #007bff;
 }
 
+.action-button.liked {
+  color: #007bff;
+  background: rgba(0, 123, 255, 0.1);
+}
+
+.action-button.shared {
+  color: #28a745;
+  background: rgba(40, 167, 69, 0.1);
+}
+
 .action-icon {
   width: 16px;
   height: 16px;
@@ -357,11 +375,20 @@
   font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .connect-btn:hover {
   background: #0056b3;
+}
+
+.connect-btn.connected {
+  background: #28a745;
+  color: #ffffff;
+}
+
+.connect-btn.connected:hover {
+  background: #218838;
 }
 
 /* Job Board */

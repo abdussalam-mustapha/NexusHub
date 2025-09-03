@@ -3,6 +3,7 @@ import Sidebar from '../shared/Sidebar'
 import TopNav from '../shared/TopNav'
 import ChatBot from '../shared/ChatBot'
 import Cart from '../shared/Cart'
+import Notifications, { showNotification } from '../shared/Notifications'
 import { useCart } from '../../contexts/CartContext'
 import { Search, Filter, Star, Heart, ShoppingCart, Package, Facebook, Twitter, Linkedin, Instagram, Camera } from 'lucide-react'
 
@@ -179,8 +180,7 @@ function EcommerceCatalog() {
   const ProductCard = ({ product }) => {
     const handleAddToCart = () => {
       addToCart(product)
-      // Optional: Show a success message or notification
-      console.log(`Added ${product.name} to cart`)
+      showNotification('cart', 'Added to Cart!', `${product.name} has been added to your cart`)
     }
 
     return (
@@ -251,6 +251,7 @@ function EcommerceCatalog() {
       <TopNav title="E-commerce Catalog" />
       <ChatBot activeSection="ecommerce" />
       <Cart />
+      <Notifications />
       
       <main className="main-content">
         <div className="catalog-header">

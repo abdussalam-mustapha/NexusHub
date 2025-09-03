@@ -2,7 +2,9 @@ import './NetworkingFeed.css'
 import Sidebar from '../shared/Sidebar'
 import TopNav from '../shared/TopNav'
 import ChatBot from '../shared/ChatBot'
-import { User, Heart, MessageCircle, Share2, Image, Video, Plus, ThumbsUp, MessageSquare, Forward, Camera, Calendar, MapPin, Users, Clock, Building, Briefcase } from 'lucide-react'
+import Notifications, { showNotification } from '../shared/Notifications'
+import { User, Heart, MessageCircle, Share2, Image, Video, Plus, ThumbsUp, MessageSquare, Forward, Camera, Calendar, MapPin, Users, Clock, Building, Briefcase, Send } from 'lucide-react'
+import { useState } from 'react'
 import ava1 from '../../assets/ava1.png'
 import ava2 from '../../assets/ava2.png'
 import ava3 from '../../assets/ava3.png'
@@ -10,7 +12,7 @@ import testimonial3 from '../../assets/testimonial3.jpg'
 import codeImg from '../../assets/code.png'
 
 function NetworkingFeed() {
-  const posts = [
+  const [posts, setPosts] = useState([
     {
       id: 1,
       author: {
@@ -25,7 +27,9 @@ function NetworkingFeed() {
       stats: {
         likes: 194,
         comments: 23,
-        shares: 11
+        shares: 11,
+        isLiked: false,
+        isShared: false
       }
     },
     {
@@ -41,7 +45,9 @@ function NetworkingFeed() {
       stats: {
         likes: 88,
         comments: 15,
-        shares: 7
+        shares: 7,
+        isLiked: false,
+        isShared: false
       }
     },
     {
@@ -58,10 +64,90 @@ function NetworkingFeed() {
       stats: {
         likes: 210,
         comments: 45,
-        shares: 18
+        shares: 18,
+        isLiked: false,
+        isShared: false
       }
     }
-  ]
+  ])
+
+  const [newPost, setNewPost] = useState('')
+  const [connections, setConnections] = useState([])
+
+  const handleLike = (postId) => {
+    setPosts(prevPosts =>
+      prevPosts.map(post =>
+        post.id === postId
+          ? {
+              ...post,
+              stats: {
+                ...post.stats,
+                likes: post.stats.isLiked ? post.stats.likes - 1 : post.stats.likes + 1,
+                isLiked: !post.stats.isLiked
+              }
+            }
+          : post
+      )
+    )
+    
+    const post = posts.find(p => p.id === postId)
+    if (!post.stats.isLiked) {
+      showNotification('success', 'Post Liked!', `You liked ${post.author.name}'s post`)
+    }
+  }
+
+  const handleShare = (postId) => {
+    setPosts(prevPosts =>
+      prevPosts.map(post =>
+        post.id === postId
+          ? {
+              ...post,
+              stats: {
+                ...post.stats,
+                shares: post.stats.isShared ? post.stats.shares - 1 : post.stats.shares + 1,
+                isShared: !post.stats.isShared
+              }
+            }
+          : post
+      )
+    )
+  }
+
+  const handleConnect = (personName) => {
+    if (connections.includes(personName)) {
+      setConnections(connections.filter(name => name !== personName))
+      showNotification('info', 'Disconnected', `You disconnected from ${personName}`)
+    } else {
+      setConnections([...connections, personName])
+      showNotification('success', 'Connected!', `You are now connected with ${personName}`)
+    }
+  }
+
+  const handleCreatePost = () => {
+    if (newPost.trim()) {
+      const post = {
+        id: posts.length + 1,
+        author: {
+          name: "You",
+          title: "NexusHub Member",
+          time: "now",
+          avatar: ava3
+        },
+        content: newPost,
+        hashtags: [],
+        stats: {
+          likes: 0,
+          comments: 0,
+          shares: 0,
+          isLiked: false,
+          isShared: false
+        }
+      }
+      setPosts([post, ...posts])
+      setNewPost('')
+      showNotification('success', 'Post Created!', 'Your post has been shared with your network')
+    }
+  }
 
   const suggestions = [
     { name: "Sarah Lee", title: "Food Blogger & Gaming Enthusiast", avatar: ava1 },
@@ -122,6 +208,7 @@ function NetworkingFeed() {
       <Sidebar activeSection="networking" />
       <TopNav title="Networking Feed" />
       <ChatBot activeSection="networking" />
+      <Notifications />
       
       <main className="main-content">
         <div className="feed-container">
@@ -132,10 +219,12 @@ function NetworkingFeed() {
                 <div className="user-avatar">
                   <img src={ava3} alt="User" />
                 </div>
-                <input 
-                  type="text" 
+                <textarea 
+                  value={newPost}
+                  onChange={(e) => setNewPost(e.target.value)}
                   placeholder="What fun thing are you up to today?"
                   className="post-input"
+                  rows="3"
                 />
               </div>
               <div className="create-post-actions">
@@ -143,7 +232,10 @@ function NetworkingFeed() {
                   <Image className="action-icon" />
                   Add Photo/Video
                 </button>
-                <button className="post-btn">Post</button>
+                <button className="post-btn" onClick={handleCreatePost}>
+                  <Send className="action-icon" />
+                  Post
+                </button>
               </div>
             </div>
 
@@ -201,7 +293,10 @@ function NetworkingFeed() {
                   </div>
                   
                   <div className="post-actions">
-                    <button className="action-button">
+                    <button 
+                      className={`action-button ${post.stats.isLiked ? 'liked' : ''}`}
+                      onClick={() => handleLike(post.id)}
+                    >
                       <ThumbsUp className="action-icon" />
                       Like
                     </button>
@@ -209,7 +304,10 @@ function NetworkingFeed() {
                       <MessageSquare className="action-icon" />
                       Comment
                     </button>
-                    <button className="action-button">
+                    <button 
+                      className={`action-button ${post.stats.isShared ? 'shared' : ''}`}
+                      onClick={() => handleShare(post.id)}
+                    >
                       <Forward className="action-icon" />
                       Share
                     </button>
@@ -232,7 +330,12 @@ function NetworkingFeed() {
                     <h4>{person.name}</h4>
                     <p>{person.title}</p>
                   </div>
-                  <button className="connect-btn">Connect</button>
+                  <button 
+                    className={`connect-btn ${connections.includes(person.name) ? 'connected' : ''}`}
+                    onClick={() => handleConnect(person.name)}
+                  >
+                    {connections.includes(person.name) ? 'Connected' : 'Connect'}
+                  </button>
                 </div>
               ))}
             </div>
