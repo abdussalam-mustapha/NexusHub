@@ -5,7 +5,13 @@
   
   **Unifying Your Digital World: Commerce, Property, & Connections**
   
-  Experience the next generation of integrated digital platforms combining Real Estate, E-commerce, and Professional Networking, powered by Sensay AI.
+  Experience the next generation of integrated digital platforms combining Real Estate, E-co### 🤝 **Networking Module**
+- **Social Feed**: Connect with cool and fun people
+- **Activity Groups**: Join exciting hobby and interest groups
+- **Fun Events**: Discover local events and social gatherings
+- **Shared Interests**: Find people with similar hobbies and passions
+- **Community Building**: Create lasting friendships and connections
+- **Real-time Interactions**: Live feed with latest activities and Professional Networking, powered by Sensay AI.
   
   [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://nexushub.social)
   [![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org/)
@@ -19,7 +25,7 @@ NexusHub is a revolutionary unified digital platform that seamlessly integrates 
 
 - **🏠 Real Estate Listings** - Browse and discover properties with AI-powered recommendations
 - **🛍️ E-commerce Catalog** - Shop from a curated selection of products across multiple categories
-- **🤝 Professional Networking** - Connect, share, and grow your professional network
+- **🤝 Social Networking** - Connect with cool and fun people, share experiences, and discover exciting activities
 
 All powered by **Sensay AI** - an intelligent assistant that enhances every aspect of your experience with personalized recommendations, automated task management, and seamless cross-platform integration.
 
@@ -270,12 +276,12 @@ npm update           # Update dependencies
 - **Wishlist**: Save products for future purchase
 
 ### Networking Module
-- **Social Feed**: Professional networking timeline
-- **Content Creation**: Create posts with rich text and media
-- **Network Building**: Connect with other professionals
-- **Job Opportunities**: Discover career opportunities
-- **Real-time Updates**: Live feed with latest activities
-- **Professional Profiles**: Detailed user profiles
+- **Social Feed**: Connect with cool and fun people
+- **Activity Groups**: Join hobby and interest-based groups
+- **Fun Events**: Discover local social gatherings and activities
+- **Interest Matching**: Find people who share your hobbies and passions
+- **Community Building**: Create lasting friendships and connections
+- **Content Sharing**: Share your adventures and experiences
 
 ### AI Assistant
 - **Contextual Understanding**: AI understands your current module

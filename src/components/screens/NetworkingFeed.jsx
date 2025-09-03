@@ -15,12 +15,12 @@ function NetworkingFeed() {
       id: 1,
       author: {
         name: "Alice Johnson",
-        title: "Senior Software Engineer at TechCorp",
+        title: "Adventure Enthusiast & Coffee Lover",
         time: "2h ago",
         avatar: ava1
       },
-      content: "Just wrapped up an amazing project on distributed systems! The team did incredible work. Always learning something new in this field.",
-      hashtags: ["#DistributedSystems", "#SoftwareDevelopment"],
+      content: "Just got back from an incredible hiking trip in the mountains! Met some amazing people along the way and discovered the most beautiful sunrise spot. Anyone else love early morning adventures?",
+      hashtags: ["#Adventure", "#Hiking", "#MorningVibes"],
       image: codeImg,
       stats: {
         likes: 194,
@@ -32,12 +32,12 @@ function NetworkingFeed() {
       id: 2,
       author: {
         name: "Bob Williams",
-        title: "Marketing Director at Global Innovations",
+        title: "Music Producer & Pizza Connoisseur",
         time: "7h ago",
         avatar: ava2
       },
-      content: "Excited to share insights from our latest market analysis report. Data-driven strategies are key to success! What are your thoughts on current market trends?",
-      hashtags: ["#Marketing", "#MarketAnalysis", "#BusinessStrategy"],
+      content: "Working on some new beats in the studio tonight! Music has this amazing way of bringing people together. What's everyone listening to lately? Drop your favorite tracks below!",
+      hashtags: ["#Music", "#Beats", "#StudioLife"],
       stats: {
         likes: 88,
         comments: 15,
@@ -48,12 +48,12 @@ function NetworkingFeed() {
       id: 3,
       author: {
         name: "Charlie Davis",
-        title: "Product Manager at Innovate Solutions",
+        title: "Photographer & Travel Blogger",
         time: "2h ago",
         avatar: ava3
       },
-      content: "Our new product feature is live! Huge shoutout to the engineering and design teams for their hard work and dedication. Check it out and let us know your feedback!",
-      hashtags: ["#ProductLaunch", "#Innovation", "#Teamwork"],
+      content: "Captured some stunning shots during today's street photography walk! There's something magical about finding beauty in everyday moments. Who else loves exploring the city with a camera?",
+      hashtags: ["#Photography", "#StreetArt", "#CityLife"],
       image: codeImg,
       stats: {
         likes: 210,
@@ -64,55 +64,55 @@ function NetworkingFeed() {
   ]
 
   const suggestions = [
-    { name: "Sarah Lee", title: "UX Designer", avatar: ava1 },
-    { name: "David Kim", title: "Data Scientist", avatar: ava2 },
-    { name: "Emily Chen", title: "Project Manager", avatar: testimonial3 }
+    { name: "Sarah Lee", title: "Food Blogger & Gaming Enthusiast", avatar: ava1 },
+    { name: "David Kim", title: "Movie Buff & Weekend Chef", avatar: ava2 },
+    { name: "Emily Chen", title: "Yoga Instructor & Book Lover", avatar: testimonial3 }
   ]
 
   const jobs = [
     {
-      title: "Full Stack Developer",
-      company: "Byte Studio",
-      location: "Remote • $120k-$150k",
-      time: "Full-time",
+      title: "Weekend Photography Buddy",
+      company: "Local Photo Club",
+      location: "City Center • Free Activity",
+      time: "Weekends",
       status: "1 week ago"
     },
     {
-      title: "Content Strategist",
-      company: "Design Agency",
-      location: "San Francisco • $80k-$100k",
-      time: "Full-time",
+      title: "Board Game Night Host",
+      company: "Community Center",
+      location: "Downtown • Social Activity",
+      time: "Every Friday",
       status: "3 days ago"
     },
     {
-      title: "Junior Data Analyst",
-      company: "Analytics Hub",
-      location: "New York • $70k-$85k",
-      time: "Internship",
+      title: "Hiking Group Member",
+      company: "Adventure Seekers",
+      location: "Various Trails • Outdoor Fun",
+      time: "Flexible",
       status: "2 days ago"
     }
   ]
 
   const events = [
     {
-      title: "AI in Business Summit",
+      title: "Local Food Festival",
       date: "October 28, 2024",
-      location: "Virtual",
-      type: "Conference",
+      location: "Central Park",
+      type: "Food & Fun",
       attendees: "500+ attending"
     },
     {
-      title: "Networking Mixer: Tech Industry",
+      title: "Movie Night Under the Stars",
       date: "November 10, 2024",
-      location: "London, UK",
-      type: "Social",
+      location: "Outdoor Cinema",
+      type: "Entertainment",
       attendees: "150+ attending"
     },
     {
-      title: "Blockchain Fundamentals Workshop",
+      title: "Art & Craft Workshop",
       date: "December 5, 2024",
-      location: "Online",
-      type: "Workshop",
+      location: "Community Studio",
+      type: "Creative",
       attendees: "80+ attending"
     }
   ]
@@ -134,7 +134,7 @@ function NetworkingFeed() {
                 </div>
                 <input 
                   type="text" 
-                  placeholder="What's on your mind, John?"
+                  placeholder="What fun thing are you up to today?"
                   className="post-input"
                 />
               </div>
@@ -237,9 +237,9 @@ function NetworkingFeed() {
               ))}
             </div>
 
-            {/* Job Board */}
+            {/* Activity Groups */}
             <div className="job-board-section">
-              <h3>Job Board</h3>
+              <h3>Activity Groups</h3>
               {jobs.map((job, index) => (
                 <div key={index} className="job-card">
                   <div className="job-header">
@@ -252,15 +252,15 @@ function NetworkingFeed() {
                   </div>
                   <div className="job-actions">
                     <span className="job-time">{job.status}</span>
-                    <button className="apply-btn">Apply Now</button>
+                    <button className="apply-btn">Join Group</button>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Upcoming Events */}
+            {/* Fun Events */}
             <div className="events-section">
-              <h3>Upcoming Events</h3>
+              <h3>Fun Events</h3>
               {events.map((event, index) => (
                 <div key={index} className="event-card">
                   <div className="event-header">
@@ -281,7 +281,7 @@ function NetworkingFeed() {
                       <span>{event.attendees}</span>
                     </div>
                   </div>
-                  <button className="event-btn">View Details</button>
+                  <button className="event-btn">Join Event</button>
                 </div>
               ))}
             </div>
