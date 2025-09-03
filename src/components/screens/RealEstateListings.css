@@ -64,6 +64,7 @@
   margin-top: 60px;
   padding: 2rem;
   min-height: calc(100vh - 60px);
+  background: #2a2f36;
 }
 
 .listings-header {
