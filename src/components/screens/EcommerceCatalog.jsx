@@ -2,6 +2,8 @@ import './EcommerceCatalog.css'
 import Sidebar from '../shared/Sidebar'
 import TopNav from '../shared/TopNav'
 import ChatBot from '../shared/ChatBot'
+import Cart from '../shared/Cart'
+import { useCart } from '../../contexts/CartContext'
 import { Search, Filter, Star, Heart, ShoppingCart, Package, Facebook, Twitter, Linkedin, Instagram, Camera } from 'lucide-react'
 
 // Product Images
@@ -19,6 +21,8 @@ import smartGardenImg from '../../assets/indoor_smRT_GARDEN.jpeg'
 import photoFrameImg from '../../assets/photo_frame.jpg'
 
 function EcommerceCatalog() {
+  const { addToCart } = useCart()
+
   const trendingProducts = [
     {
       id: 1,
@@ -172,71 +176,81 @@ function EcommerceCatalog() {
     }
   ]
 
-  const ProductCard = ({ product }) => (
-    <div className="product-card">
-      {product.badge && (
-        <div className="product-badge">{product.badge}</div>
-      )}
-      
-      <div className="product-image">
-        {(typeof product.image === 'string' && !product.image.includes('/assets/')) ? (
-          <div className="image-placeholder">{product.image}</div>
-        ) : (
-          <img src={product.image} alt={product.name} className="product-image-content" />
-        )}
-        <button className="wishlist-btn">
-          <Heart className="heart-icon" />
-        </button>
-      </div>
-      
-      <div className="product-info">
-        <h3 className="product-name">{product.name}</h3>
-        <div className="product-price">
-          <span className="current-price">${product.price}</span>
-          {product.originalPrice && (
-            <span className="original-price">${product.originalPrice}</span>
-          )}
-        </div>
-        
-        <div className="product-brand">
-          <Package className="brand-icon" />
-          <span className="brand-name">{product.brand}</span>
-        </div>
-        
-        <div className="product-rating">
-          <div className="stars">
-            {[...Array(5)].map((_, i) => (
-              <Star 
-                key={i} 
-                className={`star ${i < Math.floor(product.rating) ? 'filled' : ''}`} 
-              />
-            ))}
-          </div>
-          <span className="rating-text">
-            {product.rating} ({product.reviews} reviews)
-          </span>
-        </div>
+  const ProductCard = ({ product }) => {
+    const handleAddToCart = () => {
+      addToCart(product)
+      // Optional: Show a success message or notification
+      console.log(`Added ${product.name} to cart`)
+    }
 
-        {product.colors && (
-          <div className="product-colors">
-            {product.colors.map((color, index) => (
-              <div key={index} className={`color-dot ${color}`}></div>
-            ))}
-          </div>
+    return (
+      <div className="product-card">
+        {product.badge && (
+          <div className="product-badge">{product.badge}</div>
         )}
         
-        <button className="add-to-cart-btn">
-          Add to Cart
-        </button>
+        <div className="product-image">
+          {(typeof product.image === 'string' && !product.image.includes('/assets/')) ? (
+            <div className="image-placeholder">{product.image}</div>
+          ) : (
+            <img src={product.image} alt={product.name} className="product-image-content" />
+          )}
+          <button className="wishlist-btn">
+            <Heart className="heart-icon" />
+          </button>
+        </div>
+        
+        <div className="product-info">
+          <h3 className="product-name">{product.name}</h3>
+          <div className="product-price">
+            <span className="current-price">${product.price}</span>
+            {product.originalPrice && (
+              <span className="original-price">${product.originalPrice}</span>
+            )}
+          </div>
+          
+          <div className="product-brand">
+            <Package className="brand-icon" />
+            <span className="brand-name">{product.brand}</span>
+          </div>
+          
+          <div className="product-rating">
+            <div className="stars">
+              {[...Array(5)].map((_, i) => (
+                <Star 
+                  key={i} 
+                  className={`star ${i < Math.floor(product.rating) ? 'filled' : ''}`} 
+                />
+              ))}
+            </div>
+            <span className="rating-text">
+              {product.rating} ({product.reviews} reviews)
+            </span>
+          </div>
+
+          {product.colors && (
+            <div className="product-colors">
+              {product.colors.map((color, index) => (
+                <div key={index} className={`color-dot ${color}`}></div>
+              ))}
+            </div>
+          )}
+          
+          <button className="add-to-cart-btn" onClick={handleAddToCart}>
+            <ShoppingCart className="cart-btn-icon" />
+            Add to Cart
+          </button>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 
   return (
     <div className="ecommerce-catalog">
       <Sidebar activeSection="ecommerce" />
       <TopNav title="E-commerce Catalog" />
       <ChatBot activeSection="ecommerce" />
+      <Cart />
       
       <main className="main-content">
         <div className="catalog-header">

@@ -359,10 +359,19 @@
   font-weight: 500;
   cursor: pointer;
   transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .add-to-cart-btn:hover {
   background: #0056b3;
+}
+
+.cart-btn-icon {
+  width: 16px;
+  height: 16px;
 }
 
 .catalog-footer {

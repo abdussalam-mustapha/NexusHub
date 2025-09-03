@@ -1,11 +1,13 @@
 import { Link, useLocation } from 'react-router-dom'
 import './TopNav.css'
-import { Search, User, MessageCircle, Menu, X } from 'lucide-react'
+import { Search, User, MessageCircle, Menu, X, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
+import { useCart } from '../../contexts/CartContext'
 
 function TopNav({ title, showSearch = true }) {
   const location = useLocation()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { getCartItemCount, toggleCart } = useCart()
   
   const tabs = [
     { label: 'E-commerce', path: '/ecommerce' },
@@ -16,6 +18,8 @@ function TopNav({ title, showSearch = true }) {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
+
+  const isEcommercePage = location.pathname === '/ecommerce'
 
   return (
     <>
@@ -53,6 +57,14 @@ function TopNav({ title, showSearch = true }) {
         
         <div className="nav-right">
           <Link to="/" className="btn-primary">Home</Link>
+          {isEcommercePage && (
+            <button className="cart-btn" onClick={toggleCart}>
+              <ShoppingCart className="cart-icon" />
+              {getCartItemCount() > 0 && (
+                <span className="cart-badge">{getCartItemCount()}</span>
+              )}
+            </button>
+          )}
           <button className="user-avatar">
             <User className="user-icon" />
           </button>
