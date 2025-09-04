@@ -25,7 +25,7 @@ NexusHub is a revolutionary unified digital platform that seamlessly integrates 
 
 - **🏠 Real Estate Listings** - Browse and discover properties with AI-powered recommendations
 - **🛍️ E-commerce Catalog** - Shop from a curated selection of products across multiple categories
-- **🤝 Social Networking** - Connect with cool and fun people, share experiences, and discover exciting activities
+- **🎉 Fun Social Networking** - Connect with cool and fun people, join hobby groups, and discover exciting social activities and events
 
 All powered by **Sensay AI** - an intelligent assistant that enhances every aspect of your experience with personalized recommendations, automated task management, and seamless cross-platform integration.
 
@@ -51,12 +51,13 @@ All powered by **Sensay AI** - an intelligent assistant that enhances every aspe
 - Shopping cart functionality
 - Product reviews and ratings
 
-### 🤝 **Networking Module**
-- Professional social feed
-- Create and share posts with rich media
-- Network suggestions and connections
-- Job listings and opportunities
-- Real-time interactions
+### 🎉 **Fun Social Networking Module**
+- Social feed for connecting with amazing people who share your interests
+- Create and share posts about your hobbies, adventures, and fun experiences
+- Join activity groups based on shared interests and passions
+- Discover local events, meetups, and social gatherings
+- Find people with similar hobbies for friendship and fun activities
+- Real-time interactions and community engagement
 
 ### 🤖 **AI-Powered Assistant**
 - Real-time chat with Sensay AI API
@@ -275,13 +276,14 @@ npm update           # Update dependencies
 - **Product Details**: Comprehensive product information
 - **Wishlist**: Save products for future purchase
 
-### Networking Module
-- **Social Feed**: Connect with cool and fun people
-- **Activity Groups**: Join hobby and interest-based groups
-- **Fun Events**: Discover local social gatherings and activities
-- **Interest Matching**: Find people who share your hobbies and passions
-- **Community Building**: Create lasting friendships and connections
-- **Content Sharing**: Share your adventures and experiences
+### Fun Social Networking Module
+- **Social Feed**: Connect with cool and fun people who share your interests
+- **Activity Groups**: Join exciting hobby and interest groups (gaming, sports, arts, music, etc.)
+- **Fun Events**: Discover local social events, meetups, and gatherings
+- **Shared Interests**: Find people with similar hobbies and passions for friendship
+- **Community Building**: Create lasting friendships through shared activities
+- **Adventure Sharing**: Share your fun experiences, adventures, and memorable moments
+- **Real-time Interactions**: Live feed with latest activities and social updates
 
 ### AI Assistant
 - **Contextual Understanding**: AI understands your current module
